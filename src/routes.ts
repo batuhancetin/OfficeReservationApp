@@ -4,6 +4,8 @@ import { createOrganizationHandler, getOrganizationHandler, getAllOrganizationsH
 import validateResource from "./middleware/validateResource";
 import { createOfficeSchema, deleteOfficeSchema, getOfficeSchema, updateOfficeSchema } from "./schemas/office.schema";
 import { createOrganizationSchema, deleteOrganizationSchema, getOrganizationSchema, updateOrganizationSchema } from "./schemas/organization.schema";
+import { createDeskSchema, deleteDeskSchema, getDeskSchema, updateDeskSchema } from "./schemas/desk.schema";
+import { createDeskHandler, deleteDeskHandler, getAllDesksHandler, getDeskHandler, updateDeskHandler } from "./controllers/desk.controller";
 
 function routes(app: Express) {
     app.post("/api/organizations", validateResource(createOrganizationSchema), createOrganizationHandler);
@@ -17,6 +19,12 @@ function routes(app: Express) {
     app.get("/api/offices/:id", validateResource(getOfficeSchema), getOfficeHandler);
     app.put("/api/offices/:id", validateResource(updateOfficeSchema), updateOfficeHandler);
     app.delete("/api/offices/:id", validateResource(deleteOfficeSchema), deleteOfficeHandler);
+
+    app.post("/api/desks", validateResource(createDeskSchema), createDeskHandler);
+    app.get("/api/desks", getAllDesksHandler);
+    app.get("/api/desks/:id", validateResource(getDeskSchema), getDeskHandler);
+    app.put("/api/desks/:id", validateResource(updateDeskSchema), updateDeskHandler);
+    app.delete("/api/desks/:id", validateResource(deleteDeskSchema), deleteDeskHandler);
 }
 
 export default routes

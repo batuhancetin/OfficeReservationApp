@@ -4,13 +4,13 @@ import { Organization } from "./organization.model";
 
 
 export class Office {
-    @prop({unique: true})
+    @prop({unique: true, required: true})
     public name?: string;
 
-    @prop({unique: true})
+    @prop({unique: true, required: true})
     public address?: string;
 
-    @prop({ref: ()=> Organization})
+    @prop({ref: ()=> Organization, required: true})
     public organization?: Ref<Organization>;
 }
 

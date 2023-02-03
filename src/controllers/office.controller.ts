@@ -1,5 +1,4 @@
 import { Request, Response } from "express";
-import { CreateOfficeInput } from "../schemas/office.schema";
 import { createOffice, deleteOffice, findAllOffices, findAndUpdateOffice, findOffice } from "../services/office.service";
 import logger from "../utils/logger";
 

@@ -1,13 +1,13 @@
 import { prop, getModelForClass } from "@typegoose/typegoose";
 
 export class Organization {
-    @prop({unique: true})
+    @prop({unique: true, required: true})
     public name?: string;
 
-    @prop({unique: true})
+    @prop({unique: true, required: true})
     public email?: string;
 
-    @prop({unique: true})
+    @prop({unique: true, required: true})
     public confirmation_email?: string;
 }
 
