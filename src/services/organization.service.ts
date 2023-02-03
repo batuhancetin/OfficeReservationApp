@@ -1,8 +1,7 @@
-import { Request } from "express";
-import OrganizationModel, {OrganizationDocument, OrganizationInput} from "../models/organization.model";
 import { FilterQuery, QueryOptions, UpdateQuery } from "mongoose";
+import { OrganizationModel, Organization } from "../models/organization.model";
 
-export async function createOrganization(input: OrganizationInput) {
+export async function createOrganization(input: Organization) {
   try {
     const organization = await OrganizationModel.create(input);
     return organization;
@@ -20,7 +19,7 @@ export async function findAllOrganizations() {
   }
 }
 
-export async function findOrganization(query: FilterQuery<OrganizationDocument>) {
+export async function findOrganization(query: FilterQuery<Organization>) {
   try {    
     const organization = await OrganizationModel.findOne(query);    
     return organization;
@@ -29,7 +28,7 @@ export async function findOrganization(query: FilterQuery<OrganizationDocument>)
   }
 }
 
-export async function findAndUpdateOrganization(query:FilterQuery<OrganizationDocument>, update: UpdateQuery<OrganizationDocument>, options: QueryOptions) {
+export async function findAndUpdateOrganization(query:FilterQuery<Organization>, update: UpdateQuery<Organization>, options: QueryOptions) {
   try {
     const updated = await OrganizationModel.findOneAndUpdate(query, update, options);
     return updated;
@@ -38,7 +37,7 @@ export async function findAndUpdateOrganization(query:FilterQuery<OrganizationDo
   }
 }
 
-export async function deleteOrganization(query: FilterQuery<OrganizationDocument>) {
+export async function deleteOrganization(query: FilterQuery<Organization>) {
   try {
     const deleted = await OrganizationModel.findOneAndDelete(query);
     return deleted;

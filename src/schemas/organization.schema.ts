@@ -6,10 +6,6 @@ const body = {
         name: z.string({
             required_error: "Name is required."
         }),
-        
-        phoneNumber: z.number({
-            required_error: "Phone number is required."
-        }),
 
         email: z.string({
             required_error: "Email is required."
