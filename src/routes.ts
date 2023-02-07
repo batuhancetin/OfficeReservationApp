@@ -6,6 +6,11 @@ import { createOfficeSchema, deleteOfficeSchema, getOfficeSchema, updateOfficeSc
 import { createOrganizationSchema, deleteOrganizationSchema, getOrganizationSchema, updateOrganizationSchema } from "./schemas/organization.schema";
 import { createDeskSchema, deleteDeskSchema, getDeskSchema, updateDeskSchema } from "./schemas/desk.schema";
 import { createDeskHandler, deleteDeskHandler, getAllDesksHandler, getDeskHandler, updateDeskHandler } from "./controllers/desk.controller";
+import { createUserSchema, forgotPasswordSchema, resetPasswordSchema, verifyUserSchema } from "./schemas/user.schema";
+import { createUserHandler, forgotPasswordHandler, getCurrentUserHandler, resetPasswordHandler, verifyUserHandler } from "./controllers/user.controller";
+import { createSessionSchema } from "./schemas/auth.schema";
+import { createSessionHandler, refreshAccessTokenHandler } from "./controllers/session.controller";
+import requireUser from "./middleware/requireUser";
 
 function routes(app: Express) {
     app.post("/api/organizations", validateResource(createOrganizationSchema), createOrganizationHandler);
@@ -25,6 +30,17 @@ function routes(app: Express) {
     app.get("/api/desks/:id", validateResource(getDeskSchema), getDeskHandler);
     app.put("/api/desks/:id", validateResource(updateDeskSchema), updateDeskHandler);
     app.delete("/api/desks/:id", validateResource(deleteDeskSchema), deleteDeskHandler);
+
+
+    app.post("/api/users", validateResource(createUserSchema), createUserHandler);
+    app.post("/api/users/verify/:id/:verificationCode", validateResource(verifyUserSchema), verifyUserHandler);
+    app.post("/api/users/forgotpassword", validateResource(forgotPasswordSchema), forgotPasswordHandler);
+    app.post("/api/users/resetpassword/:id/:passwordResetCode", validateResource(resetPasswordSchema), resetPasswordHandler);
+    app.get("/api/users/me", requireUser, getCurrentUserHandler);
+
+
+    app.post("/api/sessions", validateResource(createSessionSchema), createSessionHandler);
+    app.post("/api/sessions/refresh", refreshAccessTokenHandler);
 }
 
 export default routes
