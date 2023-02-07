@@ -4,7 +4,7 @@ import { createOrganization, findOrganization, findAllOrganizations, findAndUpda
 import { CreateOrganizationInput, DeleteOrganizationInput, GetOrganizationInput, UpdateOrganizationInput } from "../schemas/organization.schema";
 
 
-export async function createOrganizationHandler(req: Request<{}, {}, CreateOrganizationInput["body"]>, res: Response) {
+export async function createOrganizationHandler(req: Request, res: Response) {
     try {
         const organization = await createOrganization(req.body);
         return res.send(organization);
@@ -25,7 +25,7 @@ export async function getAllOrganizationsHandler(req: Request, res: Response) {
   }
 }
 
-export async function getOrganizationHandler(req: Request<GetOrganizationInput["params"]>, res: Response) {
+export async function getOrganizationHandler(req: Request, res: Response) {
   try {
       const _id = req.params.id;    
       const organization = await findOrganization({ _id });    
@@ -36,7 +36,7 @@ export async function getOrganizationHandler(req: Request<GetOrganizationInput["
   }
 }
 
-export async function updateOrganizationHandler(req: Request<UpdateOrganizationInput["params"], {}, UpdateOrganizationInput["body"]>, res: Response) {
+export async function updateOrganizationHandler(req: Request, res: Response) {
   try {
       const _id = req.params.id;
       const body = req.body;
@@ -48,7 +48,7 @@ export async function updateOrganizationHandler(req: Request<UpdateOrganizationI
   }
 }
 
-export async function deleteOrganizationHandler(req: Request<DeleteOrganizationInput["params"]>, res: Response) {
+export async function deleteOrganizationHandler(req: Request, res: Response) {
   try {
       const _id = req.params.id;
       const deleted = await deleteOrganization({ _id });

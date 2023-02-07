@@ -1,14 +1,13 @@
-import { prop, getModelForClass } from "@typegoose/typegoose";
+import { prop, getModelForClass, Ref } from "@typegoose/typegoose";
+import { User } from "./user.model";
 
 export class Organization {
     @prop({unique: true, required: true})
-    public name?: string;
+    name: string;
 
-    @prop({unique: true, required: true})
-    public email?: string;
+    @prop({ref: () => User, required: true})
+    admin: Ref<User>;
 
-    @prop({unique: true, required: true})
-    public confirmation_email?: string;
 }
 
 export const OrganizationModel = getModelForClass(Organization);

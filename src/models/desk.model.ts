@@ -3,13 +3,13 @@ import { Office } from "./office.model";
 
 export class Desk {
     @prop({required: true, unique: true})
-    public name?: string;
+    name: string;
 
     @prop({required: true, ref: () => Office})
-    public office?: Ref<Office>;
+    office: Ref<Office>;
 
     @prop({default: false})
-    public available?: boolean;
+    available: boolean;
 }
 
 export const DeskModel = getModelForClass(Desk);

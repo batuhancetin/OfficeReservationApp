@@ -7,17 +7,10 @@ const body = {
             required_error: "Name is required."
         }),
 
-        email: z.string({
-            required_error: "Email is required."
-        }).email("Not a valid email."),
-
-        confirmation_email: z.string({
-            required_error: "Confirmation email is required."
-        }).email("Not a valid email.")
+        admin: z.string({
+            required_error: "Admin is required."
+        })
         
-    }).refine((data) => data.email === data.confirmation_email, {
-        message: "Email and confirmation email must be matched.",
-        path: ["emailConfirmation"]
     })
 }
 

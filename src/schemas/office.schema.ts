@@ -6,10 +6,6 @@ const body = {
             required_error: "Name is required."
         }),
         
-        address: z.string({
-            required_error: "Address is required."
-        }),
-        
         organization: z.string({
             required_error: "Organization is required."
         })
