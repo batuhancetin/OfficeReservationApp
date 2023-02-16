@@ -7,9 +7,6 @@ export class Desk {
 
     @prop({required: true, ref: () => Office})
     office: Ref<Office>;
-
-    @prop({default: false})
-    available: boolean;
 }
 
 export const DeskModel = getModelForClass(Desk);

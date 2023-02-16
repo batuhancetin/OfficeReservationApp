@@ -9,8 +9,8 @@ export async function findAllOffices() {
     return await OfficeModel.find().populate('organization').exec();
 }
 
-export async function findOffice(query: FilterQuery<Office>) {
-    return await OfficeModel.findOne(query).populate('organization').exec();
+export async function findOffice(id: string) {
+    return await OfficeModel.findById(id).populate('organization').exec();
 }
 
 export async function findAndUpdateOffice(query:FilterQuery<Office>, update: UpdateQuery<Office>, options: QueryOptions) {

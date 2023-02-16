@@ -6,8 +6,6 @@ const body = {
             required_error: "Name is required."
         }),
         
-        available: z.boolean(),
-        
         office: z.string({
             required_error: "Office is required."
         })

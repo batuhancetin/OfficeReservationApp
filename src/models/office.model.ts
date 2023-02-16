@@ -7,8 +7,8 @@ export class Office {
     @prop({unique: true, required: true})
     name: string;
 
-    @prop({ref: ()=> Organization, required: true})
-    organization: Ref<Organization>;
+    @prop({ref: ()=> Organization})
+    organization: Ref<Organization> | null;
 }
 
 

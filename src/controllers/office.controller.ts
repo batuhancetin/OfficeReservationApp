@@ -25,8 +25,8 @@ export async function getAllOfficesHandler(req: Request, res: Response) {
 
 export async function getOfficeHandler(req: Request, res: Response) {
     try {
-        const _id = req.params.id;    
-        const office = await findOffice({ _id });    
+        const id = req.params.id;    
+        const office = await findOffice(id);    
         return res.send(office);
     } catch (e: any) {
         logger.error(e);

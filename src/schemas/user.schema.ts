@@ -1,5 +1,59 @@
 import { object, string, TypeOf } from "zod";
 
+/**
+ * @openapi
+ * components:
+ *  schemas:
+ *    CreateUserInput:
+ *      type: object
+ *      required:
+ *        - email
+ *        - firstName
+ *        - lastName
+ *        - role
+ *        - password
+ *        - passwordConfirmation
+ *      properties:
+ *        email:
+ *          type: string
+ *          default: john.doe@example.com
+ *        firstName:
+ *          type: string
+ *          default: John
+ *        password:
+ *          type: string
+ *          default: password
+ *        passwordConfirmation:
+ *          type: string
+ *          default: password
+ *        lastName:
+ *          type: string
+ *          default: Doe
+ *        role:
+ *          type: string
+ *          default: USER
+ *        organization:
+ *          type: string
+ *    CreateUserResponse:
+ *      type: object
+ *      properties:
+ *        email:
+ *          type: string
+ *        firstName:
+ *          type: string
+ *        lastName:
+ *          type: string
+ *        role:
+ *          type: string
+ *        organization:
+ *          type: string
+ *        _id:
+ *          type: string
+ *        createdAt:
+ *          type: string
+ *        updatedAt:
+ *          type: string
+ */
 export const createUserSchema = object({
   body: object({
     firstName: string({
@@ -17,7 +71,7 @@ export const createUserSchema = object({
     passwordConfirmation: string({
       required_error: "Password confirmation is required",
     }),
-
+    
     role: string({
       required_error: "Role is required."
     }),
@@ -31,6 +85,7 @@ export const createUserSchema = object({
   }),
 });
 
+
 export const verifyUserSchema = object({
   params: object({
     id: string(),
@@ -38,6 +93,19 @@ export const verifyUserSchema = object({
   }),
 });
 
+/**
+ * @openapi
+ * components:
+ *  schemas:
+ *    ForgotPasswordInput:
+ *      type: object
+ *      required:
+ *        - email
+ *      properties:
+ *        email:
+ *          type: string
+ *          default: john.doe@example.com
+ */
 export const forgotPasswordSchema = object({
   body: object({
     email: string({
@@ -46,6 +114,27 @@ export const forgotPasswordSchema = object({
   }),
 });
 
+/**
+ * @openapi
+ * components:
+ *  schemas:
+ *    ResetPasswordInput:
+ *      type: object
+ *      required:
+ *        - email
+ *        - password
+ *        - passwordConfirmation
+ *      properties:
+ *        email:
+ *          type: string
+ *          default: john.doe@example.com
+ *        password:
+ *          type: string
+ *          default: password123
+ *        passwordConfirmation:
+ *          type: string
+ *          default: password123
+ */
 export const resetPasswordSchema = object({
   params: object({
     id: string(),

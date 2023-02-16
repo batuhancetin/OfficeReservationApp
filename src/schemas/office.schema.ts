@@ -5,10 +5,6 @@ const body = {
         name: z.string({
             required_error: "Name is required."
         }),
-        
-        organization: z.string({
-            required_error: "Organization is required."
-        })
     })
 }
 

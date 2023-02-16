@@ -22,6 +22,7 @@ const params = {
     }),
 }
 
+
 export const createOrganizationSchema = z.object({
     ...body
 })

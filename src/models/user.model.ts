@@ -1,7 +1,8 @@
-import {getModelForClass, modelOptions, prop, Severity, pre, DocumentType, index,} from "@typegoose/typegoose";
+import {getModelForClass, modelOptions, prop, Severity, pre, DocumentType, index, Ref,} from "@typegoose/typegoose";
 import { nanoid } from "nanoid";
 import argon2 from "argon2";
 import log from "../utils/logger";
+import { Organization } from "./organization.model";
   
 export const privateFields = [
     "password",
@@ -46,6 +47,9 @@ export class User {
 
     @prop({ required: true })
     role: string;
+
+    @prop()
+    organization: string | null | undefined;
   
     @prop({ required: true, default: () => nanoid() })
     verificationCode: string;

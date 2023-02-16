@@ -7,8 +7,9 @@ import { createOrganizationHandler, deleteOrganizationHandler, getAllOrganizatio
 
 const router = express.Router();
 
+
 router.post("/api/organizations", requireSuperAdmin, validateResource(createOrganizationSchema), createOrganizationHandler);
-router.get("/api/organizations", requireSuperAdmin, getAllOrganizationsHandler);
+router.get("/api/organizations", getAllOrganizationsHandler);
 router.get("/api/organizations/:id", validateResource(getOrganizationSchema), getOrganizationHandler);
 router.put("/api/organizations/:id", validateResource(updateOrganizationSchema), updateOrganizationHandler);
 router.delete("/api/organizations/:id", validateResource(deleteOrganizationSchema), deleteOrganizationHandler);

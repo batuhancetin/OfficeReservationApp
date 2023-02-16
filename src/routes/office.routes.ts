@@ -6,7 +6,7 @@ import { createOfficeSchema, deleteOfficeSchema, getOfficeSchema, updateOfficeSc
 
 const router = express.Router();
 
-router.post("/api/offices", validateResource(createOfficeSchema), createOfficeHandler);
+router.post("/api/offices", requireSuperAdmin, validateResource(createOfficeSchema), createOfficeHandler);
 router.get("/api/offices", getAllOfficesHandler);
 router.get("/api/offices/:id", validateResource(getOfficeSchema), getOfficeHandler);
 router.put("/api/offices/:id", validateResource(updateOfficeSchema), updateOfficeHandler);
