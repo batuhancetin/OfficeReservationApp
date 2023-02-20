@@ -16,12 +16,6 @@ export async function getReservationsHandler(req: Request, res: Response){
         }
     }
     return res.send(allReservations);
-//    if (office) {
-//        const reservations = await getReservations(day, office);
-//        return res.send(reservations);
-//    } else {
-//        return res.sendStatus(404).send("User is probably admin or super admin")
-//    }
 }
 
 export async function createReservationHandler(req: Request, res: Response) {

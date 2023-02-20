@@ -153,6 +153,58 @@ export const resetPasswordSchema = object({
   }),
 });
 
+/**
+ * @openapi
+ * components:
+ *  schemas:
+ *    GetUserResponse:
+ *      type: object
+ *      properties:
+ *        email:
+ *          type: string
+ *        firstName:
+ *          type: string
+ *        lastName:
+ *          type: string
+ *        role:
+ *          type: string
+ *        organization:
+ *          type: string
+ *        _id:
+ *          type: string
+ *        createdAt:
+ *          type: string
+ *        updatedAt:
+ *          type: string
+ */
+export const getUserSchema = object({})
+
+
+/**
+ * @openapi
+ * components:
+ *  schemas:
+ *    AssignOfficeInput:
+ *      type: object
+ *      required:
+ *        - organization
+ *      properties:
+ *        organization:
+ *          type: string
+ */
+export const assignOfficeSchema = object({
+  params: object({
+    id: string({
+      required_error: "ID parameter is required."
+    })
+  }),
+  body: object({
+    organization: string({
+      required_error: "Organization is required."
+    })
+  })
+})
+
 export type CreateUserInput = TypeOf<typeof createUserSchema>["body"];
 
 export type VerifyUserInput = TypeOf<typeof verifyUserSchema>["params"];

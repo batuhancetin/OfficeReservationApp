@@ -16,15 +16,76 @@ const params = {
     }),
 }
 
-
+/**
+ * @openapi
+ * components:
+ *  schemas:
+ *    CreateOfficeInput:
+ *      type: object
+ *      required:
+ *        - name
+ *      properties:
+ *        name:
+ *          type: string
+ *    CreateOfficeResponse:
+ *      type: object
+ *      properties:
+ *        name:
+ *          type: string
+ *        _id:
+ *          type: string
+ *        createdAt:
+ *          type: string
+ *        updatedAt:
+ *          type: string
+ */
 export const createOfficeSchema = z.object({
     ...body
 })
 
+/**
+ * @openapi
+ * components:
+ *  schemas:
+ *    GetOfficeResponse:
+ *      type: object
+ *      properties:
+ *        name:
+ *          type: string
+ *        _id:
+ *          type: string
+ *        createdAt:
+ *          type: string
+ *        updatedAt:
+ *          type: string
+ */
 export const getOfficeSchema = z.object({
     ...params
 })
 
+/**
+ * @openapi
+ * components:
+ *  schemas:
+ *    UpdateOfficeInput:
+ *      type: object
+ *      required:
+ *        - name
+ *      properties:
+ *        name:
+ *          type: string
+ *    UpdateOfficeResponse:
+ *      type: object
+ *      properties:
+ *        name:
+ *          type: string
+ *        _id:
+ *          type: string
+ *        createdAt:
+ *          type: string
+ *        updatedAt:
+ *          type: string
+ */
 export const updateOfficeSchema = z.object({
     ...body,
     ...params

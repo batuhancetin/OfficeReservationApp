@@ -22,15 +22,88 @@ const params = {
     }),
 }
 
-
+/**
+ * @openapi
+ * components:
+ *  schemas:
+ *    CreateOrganizationInput:
+ *      type: object
+ *      required:
+ *        - name
+ *        - admin
+ *      properties:
+ *        name:
+ *          type: string
+ *        admin:
+ *          type: string
+ *    CreateOrganizationResponse:
+ *      type: object
+ *      properties:
+ *        name:
+ *          type: string
+ *        admin:
+ *          type: string
+ *        _id:
+ *          type: string
+ *        createdAt:
+ *          type: string
+ *        updatedAt:
+ *          type: string
+ */
 export const createOrganizationSchema = z.object({
     ...body
 })
 
+/**
+ * @openapi
+ * components:
+ *  schemas:
+ *    GetOrganizationResponse:
+ *      type: object
+ *      properties:
+ *        name:
+ *          type: string
+ *        admin:
+ *          type: string
+ *        _id:
+ *          type: string
+ *        createdAt:
+ *          type: string
+ *        updatedAt:
+ *          type: string
+ */
 export const getOrganizationSchema = z.object({
     ...params
 })
 
+/**
+ * @openapi
+ * components:
+ *  schemas:
+ *    UpdateOrganizationInput:
+ *      type: object
+ *      required:
+ *        - name
+ *        - admin
+ *      properties:
+ *        name:
+ *          type: string
+ *        admin:
+ *          type: string
+ *    UpdateOrganizationResponse:
+ *      type: object
+ *      properties:
+ *        name:
+ *          type: string
+ *        admin:
+ *          type: string
+ *        _id:
+ *          type: string
+ *        createdAt:
+ *          type: string
+ *        updatedAt:
+ *          type: string
+ */
 export const updateOrganizationSchema = z.object({
     ...body,
     ...params

@@ -2,7 +2,7 @@ import express from "express";
 import { requireAdmin, requireSuperAdmin, requireUser } from "../middleware/requireAuth";
 import validateResource from "../middleware/validateResource";
 import { assignOrganizationtoOfficeHandler, createAdminHandler, createSuperAdminHandler, createUserHandler, forgotPasswordHandler, getCurrentUserHandler, resetPasswordHandler, verifyUserHandler } from "../controllers/user.controller";
-import { createUserSchema, forgotPasswordSchema, resetPasswordSchema, verifyUserSchema } from "../schemas/user.schema";
+import { assignOfficeSchema, createUserSchema, forgotPasswordSchema, resetPasswordSchema, verifyUserSchema } from "../schemas/user.schema";
 
 const router = express.Router();
 
@@ -180,8 +180,59 @@ router.post("/api/users/forgotpassword", validateResource(forgotPasswordSchema),
    *        description: Forbidden
    */
 router.post("/api/users/resetpassword/:id/:passwordResetCode", validateResource(resetPasswordSchema), resetPasswordHandler);
+
+
+/**
+   * @openapi
+   * '/api/users/me':
+   *  get:
+   *     tags:
+   *     - User
+   *     summary: Get logged user
+   *     responses:
+   *      200:
+   *        description: Success
+   *        content:
+   *          application/json:
+   *            schema:
+   *              $ref: '#/components/schemas/GetUserResponse'
+   *      409:
+   *        description: Conflict
+   *      400:
+   *        description: Bad request
+   *      403:
+   *        description: Forbidden
+   */
 router.get("/api/users/me", requireUser, getCurrentUserHandler);
 
-router.patch("/api/users/assignoffice/:id", requireSuperAdmin, assignOrganizationtoOfficeHandler)
+/**
+   * @openapi
+   * '/api/users/assignoffice/{id}':
+   *  patch:
+   *     tags:
+   *     - User
+   *     summary: Assign organization to office
+   *     requestBody:
+   *      required: true
+   *      content:
+   *        application/json:
+   *           schema:
+   *              $ref: '#/components/schemas/AssignOfficeInput'
+   *     parameters:
+   *      - name: id
+   *        in: path
+   *        description: The id of the office
+   *        required: true
+   *     responses:
+   *      200:
+   *        description: Success
+   *      409:
+   *        description: Conflict
+   *      400:
+   *        description: Bad request
+   *      403:
+   *        description: Forbidden
+   */
+router.patch("/api/users/assignoffice/:id", requireSuperAdmin, validateResource(assignOfficeSchema), assignOrganizationtoOfficeHandler)
 
 export default router;

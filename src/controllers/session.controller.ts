@@ -2,7 +2,7 @@ import { DocumentType } from "@typegoose/typegoose";
 import { Request, Response } from "express";
 import { get } from "lodash";
 import { User } from "../models/user.model";
-import { CreateSessionInput } from "../schemas/auth.schema";
+import { CreateSessionInput } from "../schemas/session.schema";
 import {
   findSessionById,
   signAccessToken,
