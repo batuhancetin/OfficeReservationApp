@@ -27,8 +27,8 @@ export async function getAllOrganizationsHandler(req: Request, res: Response) {
 
 export async function getOrganizationHandler(req: Request, res: Response) {
   try {
-      const _id = req.params.id;    
-      const organization = await findOrganization({ _id });    
+      const id = req.params.id;    
+      const organization = await findOrganization(id);    
       return res.send(organization);
   } catch (e: any) {
       logger.error(e);

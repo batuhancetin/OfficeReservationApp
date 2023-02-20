@@ -8,7 +8,7 @@ const body = {
         
         office: z.string({
             required_error: "Office is required."
-        })
+        }),
     })
 }
 

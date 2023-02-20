@@ -1,11 +1,18 @@
 import { Request, Response } from "express";
 import { createDesk, deleteDesk, findAllDesks, findAndUpdateDesk, findDesk } from "../services/desk.service";
 import logger from "../utils/logger";
+import { findOffice } from "../services/office.service";
 
 export async function createDeskHandler(req: Request, res: Response) {
     try {
         
+        const office = await findOffice(req.body.office);
+        if (!office) {
+            return res.status(404).json({ message: 'Office not found' });        
+        }
         const desk = await createDesk(req.body);
+        office.desks.push(desk);
+        office.save()
         return res.send(desk);
     } catch (e: any) {
         logger.error(e);
@@ -25,8 +32,16 @@ export async function getAllDesksHandler(req: Request, res: Response) {
 
 export async function getDeskHandler(req: Request, res: Response) {
     try {
-        const _id = req.params.id;    
-        const desk = await findDesk({ _id });    
+        const id = req.params.id;    
+        const desk = await findDesk(id);  
+        if(!desk) {
+            return res.status(404).send("Desk is not found.")
+        }
+        desk.office.desks.pop(desk);
+        desk.office.save();
+        console.log(desk.office);
+        
+        
         return res.send(desk);
     } catch (e: any) {
         logger.error(e);
@@ -48,8 +63,15 @@ export async function getDeskHandler(req: Request, res: Response) {
   
   export async function deleteDeskHandler(req: Request, res: Response) {
     try {
-        const _id = req.params.id;
-        const deleted = await deleteDesk({ _id });
+        const id = req.params.id;
+        const desk = await findDesk(id);
+        if(!desk) {
+            return res.status(404).send("Desk is not found.")
+        }
+        const office = desk.office;
+        office?.desks.pop(desk);
+        office?.save();
+        const deleted = await deleteDesk(id);
         return res.send(deleted);
     } catch (e: any) {
         logger.error(e);

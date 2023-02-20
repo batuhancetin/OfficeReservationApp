@@ -9,10 +9,4 @@ export class Session {
   valid: boolean;
 }
 
-const SessionModel = getModelForClass(Session, {
-  schemaOptions: {
-    timestamps: true,
-  },
-});
 
-export default SessionModel;

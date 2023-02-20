@@ -1,5 +1,6 @@
 import { getModelForClass, prop, Ref } from "@typegoose/typegoose";
 import { Organization } from "./organization.model";
+import { Desk } from "./desk.model";
 
 
 
@@ -8,8 +9,10 @@ export class Office {
     name: string;
 
     @prop({ref: ()=> Organization})
-    organization: Ref<Organization> | null;
+    organization: Ref<Organization> | null | undefined;
+
+    @prop({ref: ()=> Desk, default: []} )
+    desks: Ref<Desk>[];
 }
 
 
-export const OfficeModel = getModelForClass(Office);

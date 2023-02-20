@@ -5,25 +5,33 @@ import sendEmail from "../utils/mailer";
 import { nanoid } from "nanoid";
 import logger from "../utils/logger";
 import { findOffice } from "../services/office.service";
+import { findOrganization } from "../services/organization.service";
 
 
 export async function createUserHandler(req: Request, res: Response) {
-    const body = req.body;
-    if (body.role !== "USER") {
-        return res.status(400).send("Role is not USER.")
-    }
     try {
-        const user = await createUser(body);
-
-        await sendEmail({
-            to: user.email,
-            from: "test@example.com",
-            subject: "Verify your email",
-            text: `verification code: ${user.verificationCode}. Id: ${user._id}`,
-        });
-    
-  
-        return res.send("User successfully created");
+        const user = res.locals.user
+        const body = req.body;
+        if (body.role !== "USER") {
+            return res.status(400).send("Role is not USER.")
+        }
+        const organization = await findOrganization(body.organization)
+        if (organization) {   
+        //    const organization_admin = await findUserById(organization.admin)         
+            if (organization.admin.valueOf() === user._id) {
+                const user = await createUser(body);
+                await sendEmail({
+                    to: user.email,
+                    from: "test@example.com",
+                    subject: "Verify your email",
+                    text: `verification code: ${user.verificationCode}. Id: ${user._id}`,
+                });
+                return res.send("User successfully created");
+            }
+            else {               
+                return res.sendStatus(403).send("Admins are different.")
+            }
+        }
     } catch (e: any) {
         if (e.code === 11000) {
             return res.status(409).send("Account already exists");

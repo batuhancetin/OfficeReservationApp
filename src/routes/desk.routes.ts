@@ -6,7 +6,7 @@ import { createDeskHandler, deleteDeskHandler, getAllDesksHandler, getDeskHandle
 
 const router = express.Router();
 
-router.post("/api/desks", validateResource(createDeskSchema), createDeskHandler);
+router.post("/api/desks", requireSuperAdmin, validateResource(createDeskSchema), createDeskHandler);
 router.get("/api/desks", getAllDesksHandler);
 router.get("/api/desks/:id", validateResource(getDeskSchema), getDeskHandler);
 router.put("/api/desks/:id", validateResource(updateDeskSchema), updateDeskHandler);

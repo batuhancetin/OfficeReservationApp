@@ -10,4 +10,3 @@ export class Organization {
 
 }
 
-export const OrganizationModel = getModelForClass(Organization);
