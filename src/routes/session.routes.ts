@@ -43,7 +43,7 @@ router.post("/api/sessions", validateResource(createSessionSchema), createSessio
  *     tags: 
  *         - Authentication
  *     parameters:
- *      - x-refresh: string
+ *      - name: x-refresh
  *        in: header
  *        description: The refresh token of the session.
  *        required: true
