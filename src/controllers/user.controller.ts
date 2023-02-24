@@ -1,5 +1,4 @@
 import { Request, Response } from "express";
-import { CreateUserInput, ForgotPasswordInput, ResetPasswordInput, VerifyUserInput } from "../schemas/user.schema";
 import { createUser, findUserById, findUserByEmail } from "../services/user.service";
 import sendEmail from "../utils/mailer";
 import { nanoid } from "nanoid";

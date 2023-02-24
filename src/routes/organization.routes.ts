@@ -119,7 +119,7 @@ router.get("/api/organizations/:id", validateResource(getOrganizationSchema), ge
    *      403:
    *        description: Forbidden
    */
-router.put("/api/organizations/:id", validateResource(updateOrganizationSchema), updateOrganizationHandler);
+router.patch("/api/organizations/:id", validateResource(updateOrganizationSchema), updateOrganizationHandler);
 
 /**
    * @openapi

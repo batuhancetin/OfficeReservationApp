@@ -118,7 +118,7 @@ router.get("/api/offices/:id", validateResource(getOfficeSchema), getOfficeHandl
    *      403:
    *        description: Forbidden
    */
-router.put("/api/offices/:id", validateResource(updateOfficeSchema), updateOfficeHandler);
+router.patch("/api/offices/:id", validateResource(updateOfficeSchema), updateOfficeHandler);
 
 /**
    * @openapi

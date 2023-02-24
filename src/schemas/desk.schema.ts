@@ -79,9 +79,6 @@ export const getDeskSchema = z.object({
  *  schemas:
  *    UpdateDeskInput:
  *      type: object
- *      required:
- *        - name
- *        - office
  *      properties:
  *        name:
  *          type: string
@@ -102,7 +99,6 @@ export const getDeskSchema = z.object({
  *          type: string
  */
 export const updateDeskSchema = z.object({
-    ...body,
     ...params
 })
 

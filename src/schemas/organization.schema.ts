@@ -82,9 +82,6 @@ export const getOrganizationSchema = z.object({
  *  schemas:
  *    UpdateOrganizationInput:
  *      type: object
- *      required:
- *        - name
- *        - admin
  *      properties:
  *        name:
  *          type: string
@@ -105,7 +102,6 @@ export const getOrganizationSchema = z.object({
  *          type: string
  */
 export const updateOrganizationSchema = z.object({
-    ...body,
     ...params
 })
 

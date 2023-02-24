@@ -69,15 +69,17 @@ export const getOfficeSchema = z.object({
  *  schemas:
  *    UpdateOfficeInput:
  *      type: object
- *      required:
- *        - name
  *      properties:
  *        name:
+ *          type: string
+ *        organization:
  *          type: string
  *    UpdateOfficeResponse:
  *      type: object
  *      properties:
  *        name:
+ *          type: string
+ *        organization:
  *          type: string
  *        _id:
  *          type: string
@@ -87,7 +89,6 @@ export const getOfficeSchema = z.object({
  *          type: string
  */
 export const updateOfficeSchema = z.object({
-    ...body,
     ...params
 })
 

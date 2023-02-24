@@ -118,7 +118,7 @@ router.get("/api/desks/:id", validateResource(getDeskSchema), getDeskHandler);
    *      403:
    *        description: Forbidden
    */
-router.put("/api/desks/:id", validateResource(updateDeskSchema), updateDeskHandler);
+router.patch("/api/desks/:id", validateResource(updateDeskSchema), updateDeskHandler);
 
 /**
    * @openapi

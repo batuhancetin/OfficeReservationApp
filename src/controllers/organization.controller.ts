@@ -52,7 +52,7 @@ export async function deleteOrganizationHandler(req: Request, res: Response) {
   try {
       const _id = req.params.id;
       const deleted = await deleteOrganization({ _id });
-      return res.send(deleted);
+      return res.status(200).send("Organization is successfully deleted.");
   } catch (e: any) {
       logger.error(e);
       return res.status(409).send(e.message);

@@ -1,8 +1,7 @@
-import {getModelForClass, modelOptions, prop, Severity, pre, DocumentType, index, Ref,} from "@typegoose/typegoose";
+import {modelOptions, prop, Severity, pre, DocumentType, index} from "@typegoose/typegoose";
 import { nanoid } from "nanoid";
 import argon2 from "argon2";
 import log from "../utils/logger";
-import { Organization } from "./organization.model";
   
 export const privateFields = [
     "password",
