@@ -2,13 +2,15 @@ import { Request, Response } from "express";
 import logger from "../utils/logger";
 import { createOrganization, findOrganization, findAllOrganizations, findAndUpdateOrganization, deleteOrganization } from "../services/organization.service";
 import { CreateOrganizationInput, DeleteOrganizationInput, GetOrganizationInput, UpdateOrganizationInput } from "../schemas/organization.schema";
+import redisClient from "../utils/caching";
+
+
 
 
 export async function createOrganizationHandler(req: Request, res: Response) {
     try {
         const organization = await createOrganization(req.body);
         return res.send(organization);
-
     } catch (e: any) {
         logger.error(e);
         return res.status(409).send(e.message);
@@ -16,24 +18,36 @@ export async function createOrganizationHandler(req: Request, res: Response) {
 }
 
 export async function getAllOrganizationsHandler(req: Request, res: Response) {
-  try {
-      const organizations = await findAllOrganizations();
-      return res.send(organizations);
-  } catch (e: any) {
-      logger.error(e);
-      return res.status(409).send(e.message);
-  }
+    try {
+        const cached = await redisClient.get('organizations');
+        if (cached) {
+            return res.send(JSON.parse(cached));
+        } else {
+            const organizations = await findAllOrganizations();
+            redisClient.setEx('organizations', 180, JSON.stringify(organizations));
+            return res.send(organizations);
+        }
+    } catch (e: any) {
+        logger.error(e);
+        return res.status(409).send(e.message);
+    }
 }
 
 export async function getOrganizationHandler(req: Request, res: Response) {
-  try {
-      const id = req.params.id;    
-      const organization = await findOrganization(id);    
-      return res.send(organization);
-  } catch (e: any) {
-      logger.error(e);
-      return res.status(409).send(e.message);
-  }
+    try {
+        const id = req.params.id;    
+        const cached = await redisClient.get(`organizations:${id}`)
+        if (cached) {
+            return res.send(JSON.parse(cached));
+        } else {
+            const organization = await findOrganization(id);    
+            redisClient.setEx(`organizations:${id}`, 180, JSON.stringify(organization))
+            return res.send(organization);
+        }
+    } catch (e: any) {
+        logger.error(e);
+        return res.status(409).send(e.message);
+    }
 }
 
 export async function updateOrganizationHandler(req: Request, res: Response) {

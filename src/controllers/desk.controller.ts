@@ -2,6 +2,7 @@ import { Request, Response } from "express";
 import { createDesk, deleteDesk, findAllDesks, findAndUpdateDesk, findDesk } from "../services/desk.service";
 import logger from "../utils/logger";
 import { findOffice } from "../services/office.service";
+import redisClient from "../utils/caching";
 
 export async function createDeskHandler(req: Request, res: Response) {
     try {
@@ -22,8 +23,14 @@ export async function createDeskHandler(req: Request, res: Response) {
 
 export async function getAllDesksHandler(req: Request, res: Response) {
     try {
-        const desks = await findAllDesks();
-        return res.send(desks);
+        const cached = await redisClient.get('desks');
+        if (cached) {
+            return res.send(JSON.parse(cached));
+        } else {
+            const desks = await findAllDesks();
+            redisClient.setEx('desks', 180, JSON.stringify(desks));
+            return res.send(desks);
+        }
     } catch (e: any) {
         logger.error(e);
         return res.status(409).send(e.message);
@@ -33,16 +40,14 @@ export async function getAllDesksHandler(req: Request, res: Response) {
 export async function getDeskHandler(req: Request, res: Response) {
     try {
         const id = req.params.id;    
-        const desk = await findDesk(id);  
-        if(!desk) {
-            return res.status(404).send("Desk is not found.")
+        const cached = await redisClient.get(`desks:${id}`)
+        if (cached) {
+            return res.send(JSON.parse(cached))
+        } else {
+            const desk = await findDesk(id);
+            redisClient.setEx(`desks:${id}`, 180, JSON.stringify(desk))   
+            return res.send(desk);
         }
-        desk.office.desks.pop(desk);
-        desk.office.save();
-        console.log(desk.office);
-        
-        
-        return res.send(desk);
     } catch (e: any) {
         logger.error(e);
         return res.status(409).send(e.message);
