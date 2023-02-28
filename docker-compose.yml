@@ -4,6 +4,7 @@ services:
     container_name: office-reservation-app
     image: office-reservation-app
     platform: linux/amd64
+    restart: always
     ports:
       - "3000:3000"
     environment:
@@ -18,9 +19,10 @@ services:
     volumes:
       - mongo-db:/data/db
   redis:
+    container_name: redis
     image: redis:latest
     ports:
-      - "6380:6380"
+      - "6379:6379"
     volumes:
       - redis:/data
 volumes:
