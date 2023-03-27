@@ -8,6 +8,7 @@ import deserializeUser from './middleware/deserializeUser';
 import { swaggerDocs } from './utils/swagger';
 import cron from 'node-cron';
 import { deleteReservations } from './services/reservation.service';
+import cors from 'cors';
 
 
 const port = config.get<number>('port');
@@ -17,6 +18,10 @@ const app = express();
 app.use(express.json());
 
 app.use(deserializeUser);
+
+app.use(cors({
+    origin: '*'
+}));
 
 app.use(routes);
 
