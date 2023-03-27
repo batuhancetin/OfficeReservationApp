@@ -55,6 +55,7 @@ export async function updateOrganizationHandler(req: Request, res: Response) {
       const _id = req.params.id;
       const body = req.body;
       const updatedOrganization = await findAndUpdateOrganization({ _id }, body, { new: true });
+      redisClient.setEx(`organizations:${_id}`, 180, JSON.stringify(updatedOrganization))
       return res.send(updatedOrganization);
   } catch (e: any) {
       logger.error(e);
@@ -66,7 +67,7 @@ export async function deleteOrganizationHandler(req: Request, res: Response) {
   try {
       const _id = req.params.id;
       const deleted = await deleteOrganization({ _id });
-      return res.status(200).send("Organization is successfully deleted.");
+      return res.status(200).json("Organization is successfully deleted.");
   } catch (e: any) {
       logger.error(e);
       return res.status(409).send(e.message);

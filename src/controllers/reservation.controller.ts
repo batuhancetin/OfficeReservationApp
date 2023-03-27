@@ -22,11 +22,11 @@ export async function createReservationHandler(req: Request, res: Response) {
     const body = req.body;
     const office = await findOffice(body.office);
     if (!office) {
-        return res.sendStatus(404).send("Office is not found.")
+        return res.sendStatus(404).json("Office is not found.")
     }
     const desk = await findDesk(body.desk);
     if (!desk) {
-        return res.sendStatus(404).send("Desk is not found.")
+        return res.sendStatus(404).json("Desk is not found.")
     }
     const reservation = await findReservation(body.day, office, desk);
     if(!reservation) {
@@ -34,12 +34,12 @@ export async function createReservationHandler(req: Request, res: Response) {
         const newReservation = await createReservation(body);
         return res.send(newReservation);
     } else {
-        return res.sendStatus(404).send("Desk is already reserved.")
+        return res.sendStatus(404).json("Desk is already reserved.")
     }
 }
 
 export async function deleteReservationHandler(req: Request, res: Response){
     const {day} = req.body;
     await deleteReservation(day);
-    return res.send("Reservation is deleted");
+    return res.json("Reservation is deleted");
 }

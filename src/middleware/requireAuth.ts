@@ -14,7 +14,7 @@ export const requireAdmin = (req: Request, res: Response, next: NextFunction) =>
 	
 	const user = res.locals.user;
 	
-  	if (!user || user.role !== "ADMIN") {
+  	if (!user || user.role !== "ADMIN" || user.role !== "SUPER_ADMIN") {
     	return res.sendStatus(403);
   	}
 

@@ -13,23 +13,22 @@ export async function createSessionHandler(
   req: Request<{}, {}, CreateSessionInput>,
   res: Response
 ) {
-  const message = "Invalid email or password";
   const { email, password } = req.body;
 
   const user = await findUserByEmail(email);
 
   if (!user) {
-    return res.send(message);
+    return res.json("Invalid email or password");
   }
 
   if (!user.verified) {
-    return res.send("Please verify your email");
+    return res.json("Please verify your email");
   }
 
   const isValid = await user.validatePassword(password);
 
   if (!isValid) {
-    return res.send(message);
+    return res.json("Invalid email or password");
   }
 
   const accessToken = signAccessToken(user);
@@ -52,19 +51,19 @@ export async function refreshAccessTokenHandler(req: Request, res: Response) {
   );
 
   if (!decoded) {
-    return res.status(401).send("Could not refresh access token");
+    return res.status(401).json("Could not refresh access token");
   }
 
   const session = await findSessionById(decoded.session);
 
   if (!session || !session.valid) {
-    return res.status(401).send("Could not refresh access token");
+    return res.status(401).json("Could not refresh access token");
   }
 
   const user = await findUserById(String(session.user));
 
   if (!user) {
-    return res.status(401).send("Could not refresh access token");
+    return res.status(401).json("Could not refresh access token");
   }
 
   const accessToken = signAccessToken(user);

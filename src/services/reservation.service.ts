@@ -12,7 +12,7 @@ export function findReservation(day: string, office: Office, desk: Desk ){
 }
 
 export function getReservations(day: string, office: Office){
-    return ReservationModel.find({day: day, office: office}).populate('user').exec();
+    return ReservationModel.find({day: day, office: office}).populate('user', '-password -verified -verificationCode -createdAt -updatedAt -__v').exec();
 
 }
 

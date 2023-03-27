@@ -59,6 +59,7 @@ export async function getDeskHandler(req: Request, res: Response) {
         const _id = req.params.id;
         const body = req.body;
         const updatedDesk = await findAndUpdateDesk({ _id }, body, { new: true });
+        redisClient.setEx(`desks:${_id}`, 180, JSON.stringify(updatedDesk))   
         return res.send(updatedDesk);
     } catch (e: any) {
         logger.error(e);
@@ -71,7 +72,7 @@ export async function getDeskHandler(req: Request, res: Response) {
         const id = req.params.id;
         const desk = await findDesk(id);
         if(!desk) {
-            return res.status(404).send("Desk is not found.")
+            return res.status(404).json("Desk is not found.")
         }
         const office = desk.office;
         office?.desks.pop(desk);
