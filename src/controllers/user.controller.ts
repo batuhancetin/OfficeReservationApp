@@ -16,7 +16,6 @@ export async function createUserHandler(req: Request, res: Response) {
         }
         const organization = await findOrganization(body.organization)
         if (organization) {   
-        //    const organization_admin = await findUserById(organization.admin)         
             if (organization.admin.valueOf() === user._id) {
                 const user = await createUser(body);
                 await sendEmail({

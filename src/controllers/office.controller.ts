@@ -16,14 +16,14 @@ export async function createOfficeHandler(req: Request, res: Response) {
 
 export async function getAllOfficesHandler(req: Request, res: Response) {
     try {
-        const cached = await redisClient.get('offices');
-        if (cached) {
-            return res.send(JSON.parse(cached));
-        } else {
-            const offices = await findAllOffices();
-            redisClient.setEx('offices', 180, JSON.stringify(offices));
-            return res.send(offices);
-        }
+        //const cached = await redisClient.get('offices');
+        //if (cached) {
+        //    return res.send(JSON.parse(cached));
+        //} else {
+        const offices = await findAllOffices();
+            //redisClient.setEx('offices', 180, JSON.stringify(offices));
+        return res.send(offices);
+        //}
     } catch (e: any) {
         logger.error(e);
         return res.status(409).send(e.message);
@@ -33,14 +33,14 @@ export async function getAllOfficesHandler(req: Request, res: Response) {
 export async function getOfficeHandler(req: Request, res: Response) {
     try {
         const id = req.params.id;    
-        const cached = await redisClient.get(`offices:${id}`)
-        if (cached) {
-            return res.send(JSON.parse(cached));
-        } else {
+        //const cached = await redisClient.get(`offices:${id}`)
+        //if (cached) {
+        //    return res.send(JSON.parse(cached));
+        //} else {
             const office = await findOffice(id);    
-            redisClient.setEx(`offices:${id}`, 180, JSON.stringify(office))
+        //    redisClient.setEx(`offices:${id}`, 180, JSON.stringify(office))
             return res.send(office);
-        }
+        //}
     } catch (e: any) {
         logger.error(e);
         return res.status(409).send(e.message);
