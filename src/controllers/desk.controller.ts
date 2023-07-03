@@ -23,14 +23,14 @@ export async function createDeskHandler(req: Request, res: Response) {
 
 export async function getAllDesksHandler(req: Request, res: Response) {
     try {
-        // const cached = await redisClient.get('desks');
-        //if (cached) {
-        //    return res.send(JSON.parse(cached));
-        //} else {
+         const cached = await redisClient.get('desks');
+        if (cached) {
+            return res.send(JSON.parse(cached));
+        } else {
         const desks = await findAllDesks();
-        //    redisClient.setEx('desks', 180, JSON.stringify(desks));
+            redisClient.setEx('desks', 180, JSON.stringify(desks));
         return res.send(desks);
-        //}
+        }
     } catch (e: any) {
         logger.error(e);
         return res.status(409).send(e.message);
@@ -40,14 +40,14 @@ export async function getAllDesksHandler(req: Request, res: Response) {
 export async function getDeskHandler(req: Request, res: Response) {
     try {
         const id = req.params.id;    
-        //const cached = await redisClient.get(`desks:${id}`)
-        //if (cached) {
-        //    return res.send(JSON.parse(cached))
-        //} else {
+        const cached = await redisClient.get(`desks:${id}`)
+        if (cached) {
+            return res.send(JSON.parse(cached))
+        } else {
         const desk = await findDesk(id);
-        //    redisClient.setEx(`desks:${id}`, 180, JSON.stringify(desk))   
+            redisClient.setEx(`desks:${id}`, 180, JSON.stringify(desk))   
         return res.send(desk);
-        //}
+        }
     } catch (e: any) {
         logger.error(e);
         return res.status(409).send(e.message);
@@ -59,7 +59,7 @@ export async function getDeskHandler(req: Request, res: Response) {
         const _id = req.params.id;
         const body = req.body;
         const updatedDesk = await findAndUpdateDesk({ _id }, body, { new: true });
-        //redisClient.setEx(`desks:${_id}`, 180, JSON.stringify(updatedDesk))   
+        redisClient.setEx(`desks:${_id}`, 180, JSON.stringify(updatedDesk))   
         return res.send(updatedDesk);
     } catch (e: any) {
         logger.error(e);

@@ -11,6 +11,6 @@ const redisClient = redis.createClient({
 const start = async () => {
     await redisClient.connect();
 }
-//start()
+start()
 
 export default redisClient

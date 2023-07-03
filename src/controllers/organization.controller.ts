@@ -19,14 +19,14 @@ export async function createOrganizationHandler(req: Request, res: Response) {
 
 export async function getAllOrganizationsHandler(req: Request, res: Response) {
     try {
-        //const cached = await redisClient.get('organizations');
-        //if (cached) {
-        //    return res.send(JSON.parse(cached));
-        //} else {
+        const cached = await redisClient.get('organizations');
+        if (cached) {
+            return res.send(JSON.parse(cached));
+        } else {
         const organizations = await findAllOrganizations();
-            //redisClient.setEx('organizations', 180, JSON.stringify(organizations));
+            redisClient.setEx('organizations', 180, JSON.stringify(organizations));
         return res.send(organizations);
-        //}
+        }
     } catch (e: any) {
         logger.error(e);
         return res.status(409).send(e.message);
@@ -36,14 +36,14 @@ export async function getAllOrganizationsHandler(req: Request, res: Response) {
 export async function getOrganizationHandler(req: Request, res: Response) {
     try {
         const id = req.params.id;    
-        //const cached = await redisClient.get(`organizations:${id}`)
-        //if (cached) {
-        //    return res.send(JSON.parse(cached));
-        //} else {
+        const cached = await redisClient.get(`organizations:${id}`)
+        if (cached) {
+            return res.send(JSON.parse(cached));
+        } else {
         const organization = await findOrganization(id);    
-            //redisClient.setEx(`organizations:${id}`, 180, JSON.stringify(organization))
+            redisClient.setEx(`organizations:${id}`, 180, JSON.stringify(organization))
         return res.send(organization);
-        //}
+        }
     } catch (e: any) {
         logger.error(e);
         return res.status(409).send(e.message);
@@ -55,7 +55,7 @@ export async function updateOrganizationHandler(req: Request, res: Response) {
       const _id = req.params.id;
       const body = req.body;
       const updatedOrganization = await findAndUpdateOrganization({ _id }, body, { new: true });
-      //redisClient.setEx(`organizations:${_id}`, 180, JSON.stringify(updatedOrganization))
+      redisClient.setEx(`organizations:${_id}`, 180, JSON.stringify(updatedOrganization))
       return res.send(updatedOrganization);
   } catch (e: any) {
       logger.error(e);

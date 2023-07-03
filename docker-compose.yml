@@ -11,11 +11,20 @@ services:
       - dbUri=mongodb+srv://batuhan:1234@cluster0.ygsqols.mongodb.net/?retryWrites=true&w=majority
     links:
       - office-reservation-app-mongo
+      - redis
     build: .
   office-reservation-app-mongo:
     container_name: office-reservation-app-mongo
     image: mongo
     volumes:
       - mongo-db:/data/db
+  redis:
+    container_name: redis
+    image: redis:latest
+    ports:
+      - "6379:6379"
+    volumes:
+      - redis:/data
 volumes:
   mongo-db:
+  redis:
