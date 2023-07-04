@@ -33,7 +33,8 @@ const router = express.Router();
    *      403:
    *        description: Forbidden
    */
-router.post("/api/reservations", requireUser, validateResource(createReservationSchema), createReservationHandler);
+router.post("/api/reservations", validateResource(createReservationSchema), createReservationHandler);
+//router.post("/api/reservations", requireUser, validateResource(createReservationSchema), createReservationHandler);
 
 /**
    * @openapi
@@ -61,7 +62,8 @@ router.post("/api/reservations", requireUser, validateResource(createReservation
    *      403:
    *        description: Forbidden
    */
-router.get("/api/reservations/:day", requireUser, validateResource(getReservationSchema), getReservationsHandler);
+router.get("/api/reservations/:day", validateResource(getReservationSchema), getReservationsHandler);
+//router.get("/api/reservations/:day", requireUser, validateResource(getReservationSchema), getReservationsHandler);
 
 /**
    * @openapi

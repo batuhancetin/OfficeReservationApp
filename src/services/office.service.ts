@@ -16,7 +16,7 @@ export async function findOffice(id: string) {
 }
 
 export async function findOfficeByOrganization(organization: string) {
-    return await OfficeModel.find({organization: organization})
+    return await OfficeModel.find({organization_id: organization})
     
 } 
 

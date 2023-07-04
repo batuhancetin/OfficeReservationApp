@@ -32,7 +32,7 @@ import { object, string, TypeOf } from "zod";
  *        role:
  *          type: string
  *          default: USER
- *        organization:
+ *        organization_id:
  *          type: string
  *    CreateUserResponse:
  *      type: object
@@ -45,7 +45,7 @@ import { object, string, TypeOf } from "zod";
  *          type: string
  *        role:
  *          type: string
- *        organization:
+ *        organization_id:
  *          type: string
  *        _id:
  *          type: string
@@ -168,7 +168,7 @@ export const resetPasswordSchema = object({
  *          type: string
  *        role:
  *          type: string
- *        organization:
+ *        organization_id:
  *          type: string
  *        _id:
  *          type: string
@@ -187,9 +187,9 @@ export const getUserSchema = object({})
  *    AssignOfficeInput:
  *      type: object
  *      required:
- *        - organization
+ *        - organization_id
  *      properties:
- *        organization:
+ *        organization_id:
  *          type: string
  */
 export const assignOfficeSchema = object({
@@ -199,8 +199,8 @@ export const assignOfficeSchema = object({
     })
   }),
   body: object({
-    organization: string({
-      required_error: "Organization is required."
+    organization_id: string({
+      required_error: "Organization id is required."
     })
   })
 })

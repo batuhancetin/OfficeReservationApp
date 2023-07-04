@@ -74,7 +74,7 @@ export async function getDeskHandler(req: Request, res: Response) {
         if(!desk) {
             return res.status(404).json("Desk is not found.")
         }
-        const office = desk.office;
+        const office = desk.office_id;
         office?.desks.pop(desk);
         office?.save();
         const deleted = await deleteDesk(id);

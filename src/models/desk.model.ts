@@ -7,7 +7,7 @@ export class Desk {
     name: string;
 
     @prop({ref: () => Office})
-    office: Ref<Office>;
+    office_id: Ref<Office>;
 
 }
 

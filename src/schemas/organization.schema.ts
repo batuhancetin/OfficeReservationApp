@@ -7,8 +7,8 @@ const body = {
             required_error: "Name is required."
         }),
 
-        admin: z.string({
-            required_error: "Admin is required."
+        admin_id: z.string({
+            required_error: "Admin id is required."
         })
         
     })
@@ -30,18 +30,18 @@ const params = {
  *      type: object
  *      required:
  *        - name
- *        - admin
+ *        - admin_id
  *      properties:
  *        name:
  *          type: string
- *        admin:
+ *        admin_id:
  *          type: string
  *    CreateOrganizationResponse:
  *      type: object
  *      properties:
  *        name:
  *          type: string
- *        admin:
+ *        admin_id:
  *          type: string
  *        _id:
  *          type: string
@@ -63,7 +63,7 @@ export const createOrganizationSchema = z.object({
  *      properties:
  *        name:
  *          type: string
- *        admin:
+ *        admin_id:
  *          type: string
  *        _id:
  *          type: string
@@ -85,14 +85,14 @@ export const getOrganizationSchema = z.object({
  *      properties:
  *        name:
  *          type: string
- *        admin:
+ *        admin_id:
  *          type: string
  *    UpdateOrganizationResponse:
  *      type: object
  *      properties:
  *        name:
  *          type: string
- *        admin:
+ *        admin_id:
  *          type: string
  *        _id:
  *          type: string

@@ -48,7 +48,7 @@ export class User {
     role: string;
 
     @prop()
-    organization: string | null | undefined;
+    organization_id: string | null | undefined;
   
     @prop({ required: true, default: () => nanoid() })
     verificationCode: string;

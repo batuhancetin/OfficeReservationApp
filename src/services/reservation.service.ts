@@ -8,11 +8,11 @@ export function createReservation(input: Reservation){
 }
 
 export function findReservation(day: string, office: Office, desk: Desk ){
-    return ReservationModel.findOne({day, office, desk});
+    return ReservationModel.findOne({day, office_id: office, desk_id: desk});
 }
 
 export function getReservations(day: string, office: Office){
-    return ReservationModel.find({day: day, office: office}).populate('user', '-password -verified -verificationCode -createdAt -updatedAt -__v').exec();
+    return ReservationModel.find({day: day, office_id: office}).populate('user', '-password -verified -verificationCode -createdAt -updatedAt -__v').exec();
 
 }
 

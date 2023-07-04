@@ -5,8 +5,8 @@ const body = {
             required_error: "Name is required."
         }),
         
-        office: z.string({
-            required_error: "Office is required."
+        office_id: z.string({
+            required_error: "Office id is required."
         }),
     })
 }
@@ -27,18 +27,18 @@ const params = {
  *      type: object
  *      required:
  *        - name
- *        - office
+ *        - office_id
  *      properties:
  *        name:
  *          type: string
- *        office:
+ *        office_id:
  *          type: string
  *    CreateDeskResponse:
  *      type: object
  *      properties:
  *        name:
  *          type: string
- *        office:
+ *        office_id:
  *          type: string
  *        _id:
  *          type: string
@@ -60,7 +60,7 @@ export const createDeskSchema = z.object({
  *      properties:
  *        name:
  *          type: string
- *        office:
+ *        office_id:
  *          type: string
  *        _id:
  *          type: string
@@ -82,14 +82,14 @@ export const getDeskSchema = z.object({
  *      properties:
  *        name:
  *          type: string
- *        office:
+ *        office_id:
  *          type: string
  *    UpdateDeskResponse:
  *      type: object
  *      properties:
  *        name:
  *          type: string
- *        office:
+ *        office_id:
  *          type: string
  *        _id:
  *          type: string

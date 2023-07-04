@@ -9,7 +9,7 @@ export class Office {
     name: string;
 
     @prop({ref: ()=> Organization})
-    organization: Ref<Organization> | null | undefined;
+    organization_id: Ref<Organization> | null | undefined;
 
     @prop({ref: ()=> Desk, default: []} )
     desks: Ref<Desk>[];

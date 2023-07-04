@@ -34,7 +34,8 @@ const router = express.Router();
    *      403:
    *        description: Forbidden
    */
-router.post("/api/organizations", requireSuperAdmin, validateResource(createOrganizationSchema), createOrganizationHandler);
+router.post("/api/organizations", validateResource(createOrganizationSchema), createOrganizationHandler);
+//router.post("/api/organizations", requireSuperAdmin, validateResource(createOrganizationSchema), createOrganizationHandler);
 
 /**
    * @openapi
@@ -57,7 +58,9 @@ router.post("/api/organizations", requireSuperAdmin, validateResource(createOrga
    *      403:
    *        description: Forbidden
    */
-router.get("/api/organizations", requireSuperAdmin, getAllOrganizationsHandler);
+router.get("/api/organizations", getAllOrganizationsHandler);
+//router.get("/api/organizations", requireSuperAdmin, getAllOrganizationsHandler);
+
 
 /**
    * @openapi

@@ -8,12 +8,12 @@ export class Reservation {
     day: string;
 
     @prop({ref: () => User })
-    user: Ref<User>;
+    user_id: Ref<User>;
 
     @prop({ref: () => Office})
-    office: Ref<Office>;
+    office_id: Ref<Office>;
 
     @prop({ref: () => Desk})
-    desk: Ref<Desk>;
+    desk_id: Ref<Desk>;
 }
 

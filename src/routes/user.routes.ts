@@ -33,7 +33,8 @@ const router = express.Router();
    *      403:
    *        description: Forbidden
    */
-router.post("/api/users", requireAdmin, validateResource(createUserSchema), createUserHandler);
+router.post("/api/users", validateResource(createUserSchema), createUserHandler);
+//router.post("/api/users", requireAdmin, validateResource(createUserSchema), createUserHandler);
 
 
 /**
@@ -63,7 +64,8 @@ router.post("/api/users", requireAdmin, validateResource(createUserSchema), crea
    *      403:
    *        description: Forbidden
    */
-router.post("/api/users/admin", requireSuperAdmin, validateResource(createUserSchema), createAdminHandler);
+router.post("/api/users/admin", validateResource(createUserSchema), createAdminHandler);
+//router.post("/api/users/admin", requireSuperAdmin, validateResource(createUserSchema), createAdminHandler);
 
 /**
    * @openapi
@@ -233,6 +235,7 @@ router.get("/api/users/me", requireUser, getCurrentUserHandler);
    *      403:
    *        description: Forbidden
    */
-router.patch("/api/users/assignoffice/:id", requireSuperAdmin, validateResource(assignOfficeSchema), assignOrganizationtoOfficeHandler)
+router.patch("/api/users/assignoffice/:id", validateResource(assignOfficeSchema), assignOrganizationtoOfficeHandler)
+//router.patch("/api/users/assignoffice/:id", requireSuperAdmin, validateResource(assignOfficeSchema), assignOrganizationtoOfficeHandler)
 
 export default router;

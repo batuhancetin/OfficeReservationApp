@@ -33,7 +33,8 @@ const router = express.Router();
    *      403:
    *        description: Forbidden
    */
-router.post("/api/desks", requireSuperAdmin, validateResource(createDeskSchema), createDeskHandler);
+router.post("/api/desks", validateResource(createDeskSchema), createDeskHandler);
+//router.post("/api/desks", requireSuperAdmin, validateResource(createDeskSchema), createDeskHandler);
 
 /**
    * @openapi

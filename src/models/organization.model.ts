@@ -6,7 +6,7 @@ export class Organization {
     name: string;
 
     @prop({ref: () => User, required: true})
-    admin: Ref<User>;
+    admin_id: Ref<User>;
 
 }
 

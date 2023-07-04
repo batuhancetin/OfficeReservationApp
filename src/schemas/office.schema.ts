@@ -72,14 +72,14 @@ export const getOfficeSchema = z.object({
  *      properties:
  *        name:
  *          type: string
- *        organization:
+ *        organization_id:
  *          type: string
  *    UpdateOfficeResponse:
  *      type: object
  *      properties:
  *        name:
  *          type: string
- *        organization:
+ *        organization_id:
  *          type: string
  *        _id:
  *          type: string

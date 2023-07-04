@@ -11,26 +11,26 @@ import { date, object, string, TypeOf } from 'zod';
  *      type: object
  *      required:
  *        - day
- *        - office
- *        - desk
+ *        - office_id
+ *        - desk_id
  *      properties:
  *        day:
  *          type: string
  *          default: 01-01-2023
- *        office:
+ *        office_id:
  *          type: string
- *        desk:
+ *        desk_id:
  *          type: string
  *    CreateReservationResponse:
  *      type: object
  *      properties:
  *        day:
  *          type: string
- *        office:
+ *        office_id:
  *          type: string
- *        desk:
+ *        desk_id:
  *          type: string
- *        user:
+ *        user_id:
  *          type: string
  *        _id:
  *          type: string
@@ -42,8 +42,8 @@ import { date, object, string, TypeOf } from 'zod';
 export const createReservationSchema = object({
     body: object ({
         day: string({required_error: "day is required"}),
-        office: string({required_error: "office is required"}),
-        desk: string({required_error: "desk is required"}),
+        office_id: string({required_error: "office id is required"}),
+        desk_id: string({required_error: "desk id is required"}),
     })
 })
 
@@ -56,11 +56,11 @@ export const createReservationSchema = object({
  *      properties:
  *        day:
  *          type: string
- *        office:
+ *        office_id:
  *          type: string
- *        desk:
+ *        desk_id:
  *          type: string
- *        user:
+ *        user_id:
  *          type: string
  *        _id:
  *          type: string
@@ -78,7 +78,7 @@ export const getReservationSchema = object({
 export const deleteReservationSchema = object({
     body: object ({
         day: string({required_error: "day is required"}),
-        desk: string()
+        desk_id: string()
     })
 })
 

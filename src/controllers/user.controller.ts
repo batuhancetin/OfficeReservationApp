@@ -16,7 +16,7 @@ export async function createUserHandler(req: Request, res: Response) {
         }
         const organization = await findOrganization(body.organization)
         if (organization) {   
-            if (organization.admin.valueOf() === user._id) {
+            if (organization.admin_id.valueOf() === user._id) {
                 const user = await createUser(body);
                 await sendEmail({
                     to: user.email,
@@ -184,7 +184,7 @@ export async function assignOrganizationtoOfficeHandler(req: Request, res: Respo
         return res.status(400).send("Could not find the office.");
     }
 
-    office.organization = organization;
+    office.organization_id = organization;
 
     await office.save();
     
